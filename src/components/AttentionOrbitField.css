@@ -1,0 +1,216 @@
+/* AttentionOrbitField — миниатюры вокруг глаза */
+
+.am-orbit-field {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1536 / 1180;
+  container-type: size;
+  --hub-x: 50%;
+  --hub-y: 43%;
+  --orbit-r1: 24cqmin;
+  --orbit-r2: 31cqmin;
+  --orbit-r3: 38cqmin;
+  --orbit-r4: 45cqmin;
+}
+
+.am-orbit-field__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.am-orbit-field__ring {
+  position: absolute;
+  left: var(--hub-x);
+  top: var(--hub-y);
+  border-radius: 50%;
+  border: 1px solid rgba(74, 144, 226, 0.1);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 18px rgba(74, 144, 226, 0.04);
+}
+
+.am-orbit-field__ring--1 {
+  width: calc(var(--orbit-r1) * 2);
+  height: calc(var(--orbit-r1) * 2);
+}
+
+.am-orbit-field__ring--2 {
+  width: calc(var(--orbit-r2) * 2);
+  height: calc(var(--orbit-r2) * 2);
+  border-color: rgba(110, 168, 255, 0.12);
+}
+
+.am-orbit-field__ring--3 {
+  width: calc(var(--orbit-r3) * 2);
+  height: calc(var(--orbit-r3) * 2);
+  border-color: rgba(155, 140, 255, 0.1);
+}
+
+.am-orbit-field__ring--4 {
+  width: calc(var(--orbit-r4) * 2);
+  height: calc(var(--orbit-r4) * 2);
+  border-color: rgba(74, 144, 226, 0.08);
+}
+
+.am-orbit-field__glow {
+  position: absolute;
+  left: var(--hub-x);
+  top: var(--hub-y);
+  width: 58cqmin;
+  height: 58cqmin;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(74, 144, 226, 0.14) 0%,
+    rgba(74, 144, 226, 0.04) 42%,
+    transparent 68%
+  );
+  filter: blur(8px);
+}
+
+.am-orbit-field__layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  animation: am-orbit-spin var(--spin-duration, 520s) linear infinite;
+  pointer-events: none;
+}
+
+.am-orbit-field__layer--2,
+.am-orbit-field__layer--4 {
+  animation-direction: reverse;
+}
+
+.am-orbit-field__item {
+  position: absolute;
+  left: var(--hub-x);
+  top: var(--hub-y);
+  width: var(--size);
+  height: var(--size);
+  opacity: var(--opacity);
+}
+
+.am-orbit-field__item--ring-1 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r1)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.am-orbit-field__item--ring-2 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r2)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.am-orbit-field__item--ring-3 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r3)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.am-orbit-field__item--ring-4 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r4)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.am-orbit-field__item-inner {
+  width: 100%;
+  height: 100%;
+  animation: am-orbit-float 5.5s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+.am-orbit-field__thumb {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(8, 14, 28, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(110, 168, 255, 0.08) inset,
+    0 8px 22px rgba(0, 0, 0, 0.35),
+    0 0 18px rgba(74, 144, 226, 0.12);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.am-orbit-field__thumb--rounded {
+  border-radius: 0.55rem;
+}
+
+.am-orbit-field__thumb--circle {
+  border-radius: 9999px;
+}
+
+.am-orbit-field__thumb--square {
+  border-radius: 0.35rem;
+  padding: 0.28rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.am-orbit-field__thumb-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.88) brightness(0.92);
+}
+
+.am-orbit-field__thumb--square .am-orbit-field__thumb-img {
+  object-fit: contain;
+  filter: saturate(0) brightness(1.35) opacity(0.82);
+}
+
+.am-orbit-field__eye {
+  position: absolute;
+  left: 50%;
+  top: var(--hub-y);
+  z-index: 5;
+  width: 86%;
+  transform: translate(-50%, -50%);
+  filter:
+    drop-shadow(0 18px 42px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 36px rgba(74, 144, 226, 0.22));
+}
+
+@keyframes am-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes am-orbit-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .am-orbit-field__layer,
+  .am-orbit-field__item-inner {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .am-orbit-field {
+    aspect-ratio: 1 / 1.05;
+    --orbit-r3: 34cqmin;
+    --orbit-r4: 40cqmin;
+  }
+
+  .am-orbit-field__eye {
+    width: 78%;
+  }
+
+  .am-orbit-field__layer--4 {
+    display: none;
+  }
+}

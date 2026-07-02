@@ -1,0 +1,251 @@
+/* AttentionFieldOrbit — crowded media field around the eye */
+
+.attention-field-orbit {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1536 / 1220;
+  container-type: size;
+  overflow: hidden;
+  --hub-x: 50%;
+  --hub-y: 43%;
+  --orbit-r1: 22cqmin;
+  --orbit-r2: 29cqmin;
+  --orbit-r3: 36cqmin;
+  --orbit-r4: 43cqmin;
+  --orbit-r5: 50cqmin;
+}
+
+.attention-field-orbit__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.attention-field-orbit__ring {
+  position: absolute;
+  left: var(--hub-x);
+  top: var(--hub-y);
+  border-radius: 50%;
+  border: 1px solid rgba(74, 144, 226, 0.08);
+  transform: translate(-50%, -50%);
+}
+
+.attention-field-orbit__ring--1 {
+  width: calc(var(--orbit-r1) * 2);
+  height: calc(var(--orbit-r1) * 2);
+}
+
+.attention-field-orbit__ring--2 {
+  width: calc(var(--orbit-r2) * 2);
+  height: calc(var(--orbit-r2) * 2);
+}
+
+.attention-field-orbit__ring--3 {
+  width: calc(var(--orbit-r3) * 2);
+  height: calc(var(--orbit-r3) * 2);
+  border-color: rgba(110, 168, 255, 0.1);
+}
+
+.attention-field-orbit__ring--4 {
+  width: calc(var(--orbit-r4) * 2);
+  height: calc(var(--orbit-r4) * 2);
+}
+
+.attention-field-orbit__ring--5 {
+  width: calc(var(--orbit-r5) * 2);
+  height: calc(var(--orbit-r5) * 2);
+  border-color: rgba(155, 140, 255, 0.08);
+}
+
+.attention-field-orbit__glow {
+  position: absolute;
+  left: var(--hub-x);
+  top: var(--hub-y);
+  width: 62cqmin;
+  height: 62cqmin;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(74, 144, 226, 0.16) 0%,
+    rgba(74, 144, 226, 0.05) 40%,
+    transparent 70%
+  );
+  filter: blur(10px);
+}
+
+.attention-field-orbit__layers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.attention-field-orbit__layers--back {
+  z-index: 2;
+}
+
+.attention-field-orbit__layers--front {
+  z-index: 4;
+}
+
+.attention-field-orbit__layer {
+  position: absolute;
+  inset: 0;
+  animation: attention-field-spin var(--spin-duration, 520s) linear infinite;
+}
+
+.attention-field-orbit__layer--2,
+.attention-field-orbit__layer--4 {
+  animation-direction: reverse;
+}
+
+.attention-field-orbit__item {
+  position: absolute;
+  left: var(--hub-x);
+  top: var(--hub-y);
+  width: var(--size);
+  opacity: var(--opacity);
+  filter: blur(var(--blur));
+}
+
+.attention-field-orbit__item--ring-1 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r1)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.attention-field-orbit__item--ring-2 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r2)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.attention-field-orbit__item--ring-3 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r3)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.attention-field-orbit__item--ring-4 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r4)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.attention-field-orbit__item--ring-5 {
+  transform: translate(-50%, -50%) rotate(var(--angle))
+    translateY(calc(-1 * var(--orbit-r5)))
+    rotate(calc(-1 * var(--angle)));
+}
+
+.attention-field-orbit__item-inner {
+  animation: attention-field-float 6s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+.attention-field-orbit__item--back {
+  opacity: calc(var(--opacity) * 0.82);
+}
+
+.attention-field-orbit__item--front {
+  opacity: calc(var(--opacity) * 1.05);
+}
+
+.attention-field-orbit__card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(110, 168, 255, 0.28);
+  background: rgba(6, 10, 20, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 10px 28px rgba(0, 0, 0, 0.42),
+    0 0 20px rgba(74, 144, 226, 0.14);
+  transform: rotate(var(--rotation));
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.attention-field-orbit__card--portrait {
+  width: var(--size);
+  height: calc(var(--size) * 1.28);
+  border-radius: 0.62rem;
+}
+
+.attention-field-orbit__card--landscape {
+  width: calc(var(--size) * 1.32);
+  height: calc(var(--size) * 0.82);
+  border-radius: 0.55rem;
+}
+
+.attention-field-orbit__card-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82) brightness(0.78) contrast(1.05);
+}
+
+.attention-field-orbit__card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    165deg,
+    rgba(4, 8, 18, 0.15) 0%,
+    rgba(4, 8, 18, 0.55) 58%,
+    rgba(2, 4, 10, 0.78) 100%
+  );
+  pointer-events: none;
+}
+
+.attention-field-orbit__eye {
+  position: absolute;
+  left: 50%;
+  top: var(--hub-y);
+  z-index: 5;
+  width: 86%;
+  transform: translate(-50%, -50%);
+  filter:
+    drop-shadow(0 20px 46px rgba(0, 0, 0, 0.48))
+    drop-shadow(0 0 40px rgba(74, 144, 226, 0.24));
+}
+
+@keyframes attention-field-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes attention-field-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .attention-field-orbit__layer,
+  .attention-field-orbit__item-inner {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .attention-field-orbit {
+    aspect-ratio: 1 / 1.08;
+    --orbit-r4: 38cqmin;
+    --orbit-r5: 44cqmin;
+  }
+
+  .attention-field-orbit__eye {
+    width: 78%;
+  }
+
+  .attention-field-orbit__layer--5 {
+    display: none;
+  }
+}

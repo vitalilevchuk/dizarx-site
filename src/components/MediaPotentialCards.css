@@ -1,0 +1,263 @@
+/* MediaPotentialCards — 5 карточек в ряд (mockup) */
+
+.mp-cards {
+  display: flex;
+  width: 100%;
+  max-width: min(100%, 72rem);
+  margin: 0 auto;
+  gap: clamp(0.45rem, 0.9vw, 0.75rem);
+  justify-content: center;
+  align-items: stretch;
+  overflow: visible;
+  padding: 1.25rem 0;
+}
+
+.mp-cards__item {
+  --mp-tilt: 0deg;
+
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 13.5rem;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(110, 168, 255, 0.18);
+  background: #080a10;
+  cursor: pointer;
+  transform: rotate(var(--mp-tilt));
+  transform-origin: 50% 50%;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 10px 22px rgba(0, 0, 0, 0.42),
+    0 3px 8px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.35s ease;
+}
+
+/* Лёгкий наклон — стикеры лежат не идеально ровно */
+.mp-cards__item:nth-child(1) {
+  --mp-tilt: -1.2deg;
+}
+
+.mp-cards__item:nth-child(2) {
+  --mp-tilt: 0.9deg;
+}
+
+.mp-cards__item:nth-child(3) {
+  --mp-tilt: -0.65deg;
+}
+
+.mp-cards__item:nth-child(4) {
+  --mp-tilt: 1.05deg;
+}
+
+.mp-cards__item:nth-child(5) {
+  --mp-tilt: -0.85deg;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mp-cards__item:hover {
+    z-index: 4;
+    animation: mp-sticker-wobble 0.39s ease-in-out infinite;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.07) inset,
+      0 14px 26px rgba(0, 0, 0, 0.46),
+      0 4px 10px rgba(0, 0, 0, 0.34);
+  }
+}
+
+/* Покачивание стикера: центр закреплён, углы чуть вправо ↔ влево */
+@keyframes mp-sticker-wobble {
+  0%,
+  100% {
+    transform: rotate(var(--mp-tilt)) translateX(0);
+  }
+
+  25% {
+    transform: rotate(calc(var(--mp-tilt) + 0.75deg)) translateX(1px);
+  }
+
+  50% {
+    transform: rotate(calc(var(--mp-tilt) - 0.65deg)) translateX(-1px);
+  }
+
+  75% {
+    transform: rotate(calc(var(--mp-tilt) + 0.35deg)) translateX(0.5px);
+  }
+}
+
+/* Верх — фото + overlay */
+.mp-cards__media {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  aspect-ratio: 9 / 14;
+  overflow: hidden;
+}
+
+.mp-cards__image {
+  object-fit: cover;
+}
+
+.mp-cards__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.05) 38%,
+    rgba(0, 0, 0, 0.55) 72%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+  pointer-events: none;
+}
+
+.mp-cards__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.55rem 0;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.mp-cards__handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: clamp(0.52rem, 0.72vw, 0.625rem);
+}
+
+.mp-cards__num {
+  font-weight: 600;
+  color: rgba(140, 180, 255, 0.9);
+}
+
+.mp-cards__at {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.mp-cards__bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.55rem;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.35rem;
+  padding: 0 0.55rem;
+}
+
+.mp-cards__copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.mp-cards__title {
+  margin: 0;
+  font-size: clamp(0.72rem, 1.05vw, 0.875rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+}
+
+.mp-cards__desc {
+  margin: 0.22rem 0 0;
+  font-size: clamp(0.52rem, 0.72vw, 0.625rem);
+  line-height: 1.32;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mp-cards__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.mp-cards__action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.08rem;
+  font-size: clamp(0.44rem, 0.58vw, 0.52rem);
+}
+
+.mp-cards__progress {
+  position: absolute;
+  left: 0.55rem;
+  right: 0.55rem;
+  bottom: 0.18rem;
+  z-index: 2;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.mp-cards__progress-fill {
+  display: block;
+  width: 34%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #4a90e2, #9b8cff);
+}
+
+/* Панель тегов снизу — как в референсе */
+.mp-cards__tags-panel {
+  flex-shrink: 0;
+  padding: 0.48rem 0.5rem 0.52rem;
+  background: rgba(6, 8, 16, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mp-cards__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.22rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mp-cards__tag {
+  padding: 0.16rem 0.36rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: clamp(0.44rem, 0.6vw, 0.52rem);
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.78);
+  white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .mp-cards {
+    max-width: none;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.35rem;
+  }
+
+  .mp-cards__item {
+    flex: 0 0 min(48vw, 11.5rem);
+    max-width: none;
+    scroll-snap-align: start;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .mp-cards__item {
+    max-width: 11.5rem;
+  }
+}

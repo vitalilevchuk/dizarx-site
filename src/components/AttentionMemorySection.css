@@ -1,0 +1,475 @@
+/* AttentionMemorySection — глаз absolute, текст в фиксированной правой колонке */
+
+.am-section {
+  position: relative;
+  padding: 4.5rem 0 2.5rem;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .am-section {
+    padding: 5.5rem 0 3rem;
+  }
+}
+
+/* Layout: на desktop текст занимает правую часть, глаз поверх слева */
+.am-section__layout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .am-section__layout {
+    display: grid;
+    grid-template-columns: 40fr 60fr;
+    align-items: center;
+    gap: 0;
+    /* Высота под глаз — absolute-колонка не раздувает document scroll */
+    min-height: calc(var(--am-eye-size, 1020px) * 1220 / 1536);
+    overflow: hidden;
+  }
+}
+
+/* Колонка глаза + таймер (таймер внутри eye-stack) */
+.am-section__eye-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(var(--am-eye-size, 1020px), 92vw);
+  flex-shrink: 0;
+  z-index: 1;
+  margin-top: var(--am-eye-offset-y, 0px);
+}
+
+@media (min-width: 1024px) {
+  .am-section__eye-column {
+    position: absolute;
+    left: var(--am-eye-offset-x, -72px);
+    top: 50%;
+    transform: translateY(calc(-50% + var(--am-eye-offset-y, 0px)));
+    width: var(--am-eye-size, 1020px);
+  }
+}
+
+/* Глаз — откреплён от потока, можно увеличивать без сдвига текста */
+.am-section__eye-float {
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.am-section__eye-stack {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* 24-часовой цикл внимания — под глазом, спокойный premium-тон */
+.am-section__day-timer-wrap {
+  position: absolute;
+  left: 50%;
+  top: calc(100% - 112px);
+  transform: translateX(-50%) translateZ(0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: min(100%, 14rem);
+  pointer-events: none;
+  user-select: none;
+  text-align: center;
+}
+
+.am-section__day-timer-label {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(160, 190, 230, 0.65);
+}
+
+.am-section__day-timer {
+  margin: 0;
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: rgba(210, 225, 245, 0.88);
+  text-shadow: none;
+  white-space: nowrap;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Canvas 1536×1024 — пульсация без scale, чтобы не рос scrollHeight */
+.am-section__eye-canvas {
+  position: relative;
+  width: 100%;
+  animation: am-eye-pulse 5.5s ease-in-out infinite;
+  will-change: opacity, filter;
+}
+
+@keyframes am-eye-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    filter: hue-rotate(var(--eye-hue-rotate, 0deg))
+      saturate(var(--eye-saturate, 1)) brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: hue-rotate(var(--eye-hue-rotate, 0deg))
+      saturate(var(--eye-saturate, 1)) brightness(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .am-section__eye-canvas {
+    animation: none;
+  }
+}
+
+.am-section__eye-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  filter: hue-rotate(var(--eye-hue-rotate, 0deg))
+    saturate(var(--eye-saturate, 1));
+}
+
+/* Радужка — перекраска без нового PNG (цвета из --eye-iris-* на .am-section) */
+.am-section__eye-iris-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--eye-iris-tint, 0.78);
+  mix-blend-mode: color;
+  background: radial-gradient(
+    circle at var(--eye-iris-x, 50%) var(--eye-iris-y, 47.56%),
+    var(--eye-iris-inner, #9b8cff) 0%,
+    var(--eye-iris-mid, #6ea8ff) 42%,
+    var(--eye-iris-outer, #4a90e2) 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at var(--eye-iris-x, 50%) var(--eye-iris-y, 47.56%),
+    transparent 0%,
+    transparent 11.8%,
+    rgb(0 0 0 / 0.35) 12.8%,
+    #000 14.5%,
+    #000 29.5%,
+    rgb(0 0 0 / 0.45) 32%,
+    transparent 36%
+  );
+  mask-image: radial-gradient(
+    circle at var(--eye-iris-x, 50%) var(--eye-iris-y, 47.56%),
+    transparent 0%,
+    transparent 11.8%,
+    rgb(0 0 0 / 0.35) 12.8%,
+    #000 14.5%,
+    #000 29.5%,
+    rgb(0 0 0 / 0.45) 32%,
+    transparent 36%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* Зрачок — без своего фона; мягкая маска вместо чёрного овала */
+.am-section__pupil-slot {
+  position: absolute;
+  left: var(--pupil-x, 50%);
+  top: var(--pupil-y, 50%);
+  width: var(--pupil-size, 24.5%);
+  height: var(--pupil-size, 24.5%);
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  isolation: isolate;
+  z-index: 2;
+  pointer-events: none;
+  background: none;
+  -webkit-mask-image: radial-gradient(
+    circle,
+    #000 0%,
+    #000 58%,
+    rgb(0 0 0 / 0.55) 72%,
+    transparent 84%
+  );
+  mask-image: radial-gradient(
+    circle,
+    #000 0%,
+    #000 58%,
+    rgb(0 0 0 / 0.55) 72%,
+    transparent 84%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.am-section__pupil-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.am-section__pupil-object-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+/* Бренд — едва заметное отражение, без «наклейки» */
+.am-section__pupil-object {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + var(--pupil-object-offset-y, 0%));
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-width: var(--pupil-object-size, 20%);
+  max-height: var(--pupil-object-size, 20%);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  mix-blend-mode: soft-light;
+  filter: brightness(1.08) contrast(1.04) saturate(0.9);
+  transition: opacity 120ms ease-out;
+  will-change: opacity;
+}
+
+.am-section__pupil-object--visible {
+  opacity: 0.52;
+}
+
+/* Только лёгкий свет поверх — без тёмного овала */
+.am-section__pupil-lens {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.am-section__pupil-lens__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    128deg,
+    rgb(255 255 255 / 0.09) 0%,
+    transparent 38%,
+    transparent 68%,
+    rgb(110 168 255 / 0.04) 100%
+  );
+  mix-blend-mode: soft-light;
+}
+
+.am-section__pupil-lens__specular {
+  position: absolute;
+  top: 15%;
+  right: 19%;
+  width: 22%;
+  height: 14%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 42% 38%,
+    rgb(255 255 255 / 0.45) 0%,
+    rgb(255 255 255 / 0.12) 42%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+}
+
+/* Лёгкая глубина по краю — почти незаметная */
+.am-section__pupil-lens__rim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 46%,
+    transparent 0%,
+    transparent 62%,
+    rgb(0 0 0 / 0.12) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Текст — правая колонка, на desktop тянется на всю ширину колонки */
+.am-section__copy {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  width: 100%;
+  max-width: 36rem;
+}
+
+@media (min-width: 1024px) {
+  .am-section__copy {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: none;
+    width: 100%;
+    padding-left: var(--am-copy-offset-x, 50px);
+    padding-right: 0;
+  }
+}
+
+.am-section__headline {
+  margin-top: 0.85rem;
+  font-size: clamp(1.85rem, 3.6vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.am-section__headline-accent {
+  display: block;
+  margin-top: 0.35em;
+  background: linear-gradient(135deg, #6ea8ff 0%, #9b8cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.am-section__overline {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(140, 180, 255, 0.82);
+}
+
+.am-section__overline--empty {
+  min-height: 0.875rem;
+  visibility: hidden;
+}
+
+.am-section__subheadline {
+  margin: 1rem 0 0;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #6ea8ff 0%, #9b8cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.am-section__body {
+  margin-top: 1.15rem;
+  font-size: clamp(0.9375rem, 1.25vw, 1.0625rem);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.am-section__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.35rem;
+}
+
+.am-section__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.025);
+  padding: 0.42rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.am-section__tag svg {
+  flex-shrink: 0;
+  color: rgba(140, 180, 255, 0.9);
+}
+
+.am-section__divider {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1.65rem;
+}
+
+.am-section__divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(110, 168, 255, 0.22) 50%,
+    transparent 100%
+  );
+}
+
+.am-section__divider-dot {
+  flex-shrink: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background: #6ea8ff;
+  box-shadow: 0 0 12px rgba(110, 168, 255, 0.65);
+}
+
+.am-section__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+  margin-top: 1.65rem;
+}
+
+.am-section__btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.45rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #4a90e2 0%, #7b6cff 55%, #9b8cff 100%);
+  border: 1px solid rgba(155, 140, 255, 0.45);
+  box-shadow:
+    0 0 28px rgba(110, 168, 255, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.am-section__btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 36px rgba(110, 168, 255, 0.38),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+.am-section__link-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color 0.2s ease;
+}
+
+.am-section__link-secondary:hover {
+  color: #fff;
+}
