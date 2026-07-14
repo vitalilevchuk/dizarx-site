@@ -57,13 +57,9 @@ export default function AttentionMemorySection() {
             <p className="am-section__body">{copy.body}</p>
 
             <div className="am-section__actions am-section__actions--desktop">
-              <a href={copy.primaryCta.href} className="am-section__btn-primary">
-                {copy.primaryCta.label}
-                <ArrowRight size={16} />
-              </a>
-              <a href={copy.secondaryCta.href} className="am-section__link-secondary">
+              <a href={copy.secondaryCta.href} className="am-section__btn-primary">
                 {copy.secondaryCta.label}
-                <ArrowRight size={15} />
+                <ArrowRight size={16} />
               </a>
             </div>
           </div>
