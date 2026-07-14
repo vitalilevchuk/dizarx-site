@@ -271,37 +271,55 @@ export const mediaEvolutionSection = {
   headlineAccent: "Now we apply it to products.",
   subtitle:
     "The same mechanics that helped our own projects earn billions of views now become repeatable growth systems for brands.",
-  bridgeTextBefore: "Same mechanics.",
-  bridgeTextAccent: "New outcome.",
+  bridgeTextBefore: "Same attention mechanics.",
+  bridgeTextAccent: "New business outcome.",
   mediaAsset: {
     label: "MEDIA ASSET",
-    description: "We build media projects that generate views and ad revenue.",
+    description: "We built media projects that generate views and ad revenue.",
     steps: [
-      { label: "Content", icon: Clapperboard },
-      { label: "Views", icon: Eye },
-      { label: "Ad Revenue", icon: DollarSign },
+      { id: "content", label: "Content", icon: Clapperboard },
+      { id: "views", label: "Views", icon: Eye },
+      { id: "revenue", label: "Ad Revenue", icon: DollarSign },
     ],
     gridProjectNames: [
       "Riddle",
       "Dory Story",
       "Meet Arnold",
       "GoGo Tunes",
-      "Echoes",
     ] as const,
     aggregateMetricValue: "7B+",
     aggregateMetricLabel: "organic views across media assets",
+    revenueMetricValue: "$5M+",
+    revenueMetricLabel: "ad revenue",
   },
   productSystem: {
     label: "PRODUCT MEDIA SYSTEM",
     description:
       "We apply the same mechanics to products to drive attention and growth.",
     steps: [
-      { label: "Content", icon: Clapperboard },
-      { label: "Views", icon: Eye },
-      { label: "Trust", icon: ShieldCheck },
-      { label: "Sales", icon: ShoppingCart },
+      { id: "content", label: "Content", icon: Clapperboard },
+      { id: "views", label: "Views", icon: Eye },
+      { id: "trust", label: "Trust", icon: ShieldCheck },
+      { id: "sales", label: "Sales", icon: ShoppingCart },
     ],
-    outcomeText: "Turning attention into growth.",
+    stepReveals: {
+      content: {
+        value: "Repeatable formats",
+        caption: "built around your offer",
+      },
+      views: {
+        value: "Organic reach",
+        caption: "earned through retention",
+      },
+      trust: {
+        value: "Credibility",
+        caption: "built before conversion",
+      },
+      sales: {
+        value: "Qualified demand",
+        caption: "that supports revenue",
+      },
+    },
   },
 };
 
@@ -312,7 +330,6 @@ export const howItStartsSection = {
   headlineAccent: "formats that make it possible.",
   subtitle:
     "We do not start with random content ideas. We audit your product, audience and category to find repeatable formats that can attract attention, build trust and support revenue.",
-  note: "Being shown is not the same as being chosen.",
 };
 
 export const howItStartsSteps: ProcessStep[] = [

@@ -5,11 +5,8 @@ import IndustryRecognition from "@/components/IndustryRecognition";
 import MediaEvolutionSection from "@/components/MediaEvolutionSection";
 import HowItStartsSection from "@/components/HowItStartsSection";
 import AttentionMemorySection from "@/components/AttentionMemorySection";
-/* Скрытые секции — не удалять, вернуть при необходимости */
-// import WhatWeDo from "@/components/WhatWeDo";
-// import HowWeCreateGrowth from "@/components/HowWeCreateGrowth";
-// import WhoWeWorkWith from "@/components/WhoWeWorkWith";
-// import CTA from "@/components/CTA";
+import MobileMediaEvolutionSection from "@/components/mobile/MobileMediaEvolutionSection";
+import MobileProcessSection from "@/components/mobile/MobileProcessSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -20,16 +17,22 @@ export default function Home() {
         <Hero />
         <div id="proof" className="proof-section">
           <TrustedBrands />
-          <IndustryRecognition />
+          <div className="industry-recognition-wrap">
+            <IndustryRecognition />
+          </div>
         </div>
-        <MediaEvolutionSection />
-        <HowItStartsSection />
+
+        {/* Desktop — без изменений от md и выше */}
+        <div className="hidden md:block">
+          <MediaEvolutionSection />
+          <HowItStartsSection />
+        </div>
+
+        {/* Mobile — media evolution + process */}
+        <MobileMediaEvolutionSection />
+        <MobileProcessSection />
+
         <AttentionMemorySection />
-        {/* Скрытые секции — не удалять */}
-        {/* <WhatWeDo /> */}
-        {/* <HowWeCreateGrowth /> */}
-        {/* <WhoWeWorkWith /> */}
-        {/* <CTA /> */}
       </main>
       <Footer className="page-footer" />
     </>

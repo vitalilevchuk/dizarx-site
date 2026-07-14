@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { industryRecognitionSection } from "@/data/siteContent";
 
 /** Industry Recognition — номинация Shorty Awards */
@@ -33,33 +32,21 @@ export default function IndustryRecognition() {
             </p>
           </div>
 
-          <div className="recognition-project flex shrink-0 flex-col justify-between border-t border-[rgba(255,255,255,0.1)] pt-6 md:w-52 md:border-t-0 md:border-l md:pl-8 md:pt-0 lg:w-56">
-            <div>
-              <p className="section-label">{data.projectLabel}</p>
-              <div className="mt-4 flex items-center gap-3">
-                <span className="text-lg font-semibold text-white">
-                  {data.projectName}
-                </span>
-                <div className="h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-[rgba(255,255,255,0.12)]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={data.projectImageSrc}
-                    alt={data.projectName}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
+          <div className="recognition-project flex shrink-0 flex-col border-t border-[rgba(255,255,255,0.1)] pt-6 md:w-52 md:border-t-0 md:border-l md:pl-8 md:pt-0 lg:w-56">
+            <p className="section-label">{data.projectLabel}</p>
+            <div className="mt-4 flex items-center gap-3">
+              <span className="text-lg font-semibold text-white">
+                {data.projectName}
+              </span>
+              <div className="h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-[rgba(255,255,255,0.12)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={data.projectImageSrc}
+                  alt={data.projectName}
+                  className="h-full w-full object-cover"
+                />
               </div>
             </div>
-
-            <a
-              href={data.nominationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="recognition-link mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-blue)] transition-colors hover:text-white"
-            >
-              {data.linkLabel}
-              <ArrowUpRight size={15} strokeWidth={2} />
-            </a>
           </div>
         </div>
       </div>

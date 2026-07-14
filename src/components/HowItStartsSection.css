@@ -54,12 +54,6 @@
   color: var(--text-secondary);
 }
 
-.how-it-starts__note {
-  margin: clamp(0.65rem, 1.2vh, 0.85rem) 0 0;
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-}
-
 /* Timeline — desktop */
 .how-it-starts__timeline--desktop {
   display: none;

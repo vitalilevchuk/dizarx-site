@@ -22,7 +22,6 @@ export default function HowItStartsSection() {
             </span>
           </h2>
           <p className="how-it-starts__subtitle">{data.subtitle}</p>
-          <p className="how-it-starts__note">{data.note}</p>
         </header>
 
         {/* Desktop timeline */}

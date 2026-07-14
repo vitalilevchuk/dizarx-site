@@ -12,13 +12,20 @@
   }
 }
 
-/* Layout: на desktop текст занимает правую часть, глаз поверх слева */
+/* Layout: колонка на mobile, grid на desktop */
 .am-section__layout {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
+  gap: 1.35rem;
+}
+
+@media (min-width: 768px) {
+  .am-section__layout {
+    align-items: center;
+    gap: 2.5rem;
+    margin-top: -120px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -39,10 +46,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: min(var(--am-eye-size, 1020px), 92vw);
   flex-shrink: 0;
   z-index: 1;
   margin-top: var(--am-eye-offset-y, 0px);
+}
+
+@media (min-width: 768px) {
+  .am-section__eye-column {
+    width: min(var(--am-eye-size, 1020px), 92vw);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -436,6 +448,24 @@
   margin-top: 1.65rem;
 }
 
+.am-section__mobile-cta {
+  /* mobile-стили в mobile.css */
+}
+
+@media (min-width: 768px) {
+  .am-section__mobile-cta {
+    display: none;
+  }
+
+  .am-section__mobile-row {
+    display: contents;
+  }
+
+  .am-section__actions--desktop {
+    display: flex;
+  }
+}
+
 .am-section__btn-primary {
   display: inline-flex;
   align-items: center;
@@ -472,4 +502,125 @@
 
 .am-section__link-secondary:hover {
   color: #fff;
+}
+
+/* ===== Mobile (<768px) — в конце файла, чтобы не перебивалось ===== */
+@media (max-width: 767px) {
+  .am-section {
+    --am-eye-mobile-size: min(calc(10.5rem + 100px), 50vw);
+    padding: 2.5rem 0 2rem;
+    overflow: hidden;
+  }
+
+  .am-section__layout {
+    gap: 1.35rem;
+    margin-top: 0;
+    align-items: stretch;
+  }
+
+  .am-section__copy {
+    max-width: none;
+    padding-left: 0;
+  }
+
+  .am-section__headline {
+    margin-top: 0;
+    font-size: clamp(1.75rem, 7.5vw, 2.25rem);
+  }
+
+  .am-section__subheadline {
+    font-size: 1.0625rem;
+  }
+
+  .am-section__body {
+    margin-top: 0.85rem;
+    font-size: 1rem;
+  }
+
+  .am-section__actions--desktop {
+    display: none;
+  }
+
+  .am-section__mobile-row {
+    display: grid;
+    grid-template-columns: var(--am-eye-mobile-size) minmax(0, 1fr);
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+  }
+
+  .am-section__eye-column {
+    width: var(--am-eye-mobile-size);
+    max-width: var(--am-eye-mobile-size);
+    margin-top: 0;
+  }
+
+  .am-section__eye-float,
+  .am-section__eye-stack {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .am-section__eye-column .attention-field-orbit {
+    aspect-ratio: 1536 / 1220;
+    overflow: hidden;
+  }
+
+  .am-section__eye-column .attention-field-orbit__layers {
+    display: none;
+  }
+
+  .am-section__eye-column .attention-field-orbit__ring--4,
+  .am-section__eye-column .attention-field-orbit__ring--5 {
+    display: none;
+  }
+
+  .am-section__eye-column .attention-field-orbit__eye {
+    width: 90%;
+  }
+
+  .am-section__mobile-cta {
+    display: inline-flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    min-width: 0;
+    margin-top: 0;
+    padding: 0.85rem 0.75rem;
+    font-size: clamp(0.75rem, 3.2vw, 0.9375rem);
+  }
+
+  .am-section__eye-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .am-section__day-timer-wrap {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin-top: 0.15rem;
+    width: 100%;
+    gap: 0.12rem;
+  }
+
+  .am-section__day-timer-label {
+    font-size: 0.4375rem;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+  }
+
+  .am-section__day-timer {
+    font-size: 0.6875rem;
+    letter-spacing: 0.03em;
+  }
+}
+
+/* Desktop: мобильная кнопка скрыта — .btn-primary иначе перебивает display:none */
+@media (min-width: 768px) {
+  .am-section__btn-primary.am-section__mobile-cta {
+    display: none !important;
+  }
 }

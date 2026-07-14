@@ -51,7 +51,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <a
             href={headerCta.href}
-            className="header-cta-btn hidden sm:inline-flex"
+            className="header-cta-btn hidden md:inline-flex"
           >
             {headerCta.label}
             <ArrowRight size={15} strokeWidth={2} />

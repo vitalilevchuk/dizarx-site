@@ -1,0 +1,130 @@
+/* Mobile Media Evolution — стили рядом с компонентом, без конфликтов с mobile.css */
+
+@media (max-width: 767px) {
+  .mobile-media-evolution {
+    position: relative;
+    margin-top: -70px;
+    padding: 2rem 0 2.25rem;
+    overflow: hidden;
+  }
+
+  .mobile-media-evolution__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .mobile-media-evolution__header {
+    flex: none;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: center;
+    padding: 0 0.15rem;
+  }
+
+  .mobile-media-evolution__header .media-evolution__title {
+    font-size: clamp(1.625rem, 7.2vw, 2.125rem);
+  }
+
+  .mobile-media-evolution__header .media-evolution__subtitle {
+    margin-top: 0.9rem;
+    max-width: none;
+    width: 100%;
+    font-size: clamp(1.375rem, 5.8vw, 1.6875rem);
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: -0.028em;
+    color: rgba(255, 255, 255, 0.9);
+    text-wrap: pretty;
+  }
+
+  .mobile-media-evolution__track {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0.65rem;
+    margin-top: 0.35rem;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding: 0 1.25rem 0.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+    scrollbar-width: none;
+  }
+
+  .mobile-media-evolution__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-media-evolution__slide {
+    flex: 0 0 86vw;
+    width: 86vw;
+    min-width: 86vw;
+    max-width: 86vw;
+    flex-shrink: 0;
+  }
+
+  .mobile-media-evolution__slide.media-evolution__panel {
+    width: 100%;
+    min-height: 0;
+    padding: 1.15rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .mobile-media-evolution__slide .media-evolution__reveal--brands {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+  }
+
+  .mobile-media-evolution__slide .media-evolution__brand-chip {
+    min-width: 0;
+  }
+
+  .mobile-media-evolution__slide .media-evolution__pipeline-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .mobile-media-evolution__slide .media-evolution__pipeline-track {
+    top: 1.55rem;
+  }
+
+  .mobile-media-evolution__slide .media-evolution__pipeline-label {
+    font-size: 0.5625rem;
+    letter-spacing: 0.04em;
+  }
+
+  .mobile-media-evolution__slide .media-evolution__reveal-value {
+    font-size: 1.35rem;
+  }
+
+  .mobile-media-evolution__bridge {
+    flex: 0 0 6.75rem;
+    flex-shrink: 0;
+    align-self: center;
+    flex-direction: column;
+    width: 6.75rem;
+    height: 6.75rem;
+    margin: 0;
+    padding: 0.6rem 0.45rem;
+    border-radius: 50%;
+  }
+
+  .mobile-media-evolution__bridge .media-evolution__bridge-text {
+    max-width: 5.25rem;
+    font-size: 0.5625rem;
+    line-height: 1.28;
+  }
+
+  .mobile-media-evolution__bridge .media-evolution__bridge-arrow {
+    margin-top: 0.15rem;
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}

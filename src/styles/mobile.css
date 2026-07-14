@@ -1,0 +1,351 @@
+/**
+ * DIZARX — mobile-only styles (<768px).
+ * Desktop layout не затрагивается: все правила внутри media query.
+ */
+
+@media (max-width: 767px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .page-sections {
+    overflow-x: hidden;
+  }
+
+  /* ===== Header ===== */
+  .header-cta-btn {
+    display: none !important;
+  }
+
+  /* ===== Hero ===== */
+  .hero-split {
+    min-height: auto;
+    padding-top: 4.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .hero-split-grid {
+    gap: 1rem;
+    padding-top: 0.75rem;
+  }
+
+  .hero-split-offer {
+    width: 100%;
+    max-width: none;
+  }
+
+  .hero-split-title--mobile {
+    font-size: clamp(3.35rem, 14.8vw, 4.35rem);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    font-weight: 800;
+    width: 100%;
+  }
+
+  .hero-split-title--mobile .hero-title-gradient {
+    margin-top: 0.02em;
+  }
+
+  .hero-split-subtitle {
+    margin-top: 0.9rem;
+    max-width: none;
+    width: 100%;
+    font-size: clamp(1.375rem, 5.8vw, 1.6875rem);
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: -0.028em;
+    color: rgba(255, 255, 255, 0.9);
+    text-wrap: pretty;
+  }
+
+  .hero-split-shell {
+    padding-left: 1.125rem;
+    padding-right: 1.125rem;
+  }
+
+  .hero-split-actions {
+    display: none !important;
+  }
+
+  .hero-split-proof {
+    /* Full-bleed — глаз по центру viewport, одинаковые поля слева/справа */
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0.15rem calc(50% - 50vw) 0;
+    transform: none !important;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: min(100vw, 400px);
+    min-height: 380px;
+    opacity: 1;
+  }
+
+  .hero-proof {
+    width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-proof__canvas {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0 !important;
+  }
+
+  .hero-proof:not(.hero-proof--ready) .hero-proof__canvas {
+    visibility: visible;
+  }
+
+  .hero-proof__dot {
+    display: none !important;
+  }
+
+  .hero-proof__orbit-track {
+    display: block !important;
+  }
+
+  /* Метрики внутри глаза — как на desktop */
+  .hero-proof__stats {
+    display: flex !important;
+    --stat-scale: 1.05;
+    gap: 0.45rem;
+  }
+
+  .hero-proof__stat-lbl {
+    margin-top: 0.2rem;
+    font-size: 0.5625rem;
+  }
+
+  .hero-proof__stat-line {
+    margin-top: 0.35rem;
+    width: calc(2.25rem * var(--stat-scale, 1));
+  }
+
+  .hero-proof__canvas {
+    --eye: min(90vw, 350px) !important;
+    --orbit: min(71vw, 223px) !important;
+    --card: 46px !important;
+  }
+
+  .hero-proof__badge {
+    font-size: 0.5625rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .hero-proof__card-img {
+    border-radius: 0.65rem;
+  }
+
+  /* ===== Trusted By — тот же auto-marquee, компактнее карточки ===== */
+  .trusted-brands-teaser {
+    margin-top: calc(-1.5rem + 100px);
+    padding-bottom: 1rem;
+  }
+
+  .trustedBrandsTrack {
+    gap: 14px;
+    animation-duration: 42s;
+  }
+
+  /* ===== Industry Recognition — карточка на mobile ===== */
+  #industry-recognition {
+    padding-top: 1.25rem;
+    padding-bottom: 1.5rem;
+  }
+
+  #industry-recognition .recognition-card {
+    gap: 1.25rem;
+    padding: 1.15rem;
+  }
+
+  #industry-recognition .recognition-badge-wrap {
+    height: 5.5rem;
+    width: 5.5rem;
+  }
+
+  #industry-recognition h2 {
+    font-size: 1.375rem;
+    line-height: 1.2;
+  }
+
+  #industry-recognition .recognition-project {
+    padding-top: 1rem;
+  }
+
+  /* ===== Desktop sections hidden via Tailwind md:hidden on wrappers ===== */
+
+  /* ===== Mobile sections ===== */
+  .mobile-section {
+    padding: 2.5rem 0 1.75rem;
+  }
+
+  .mobile-section__header {
+    margin-bottom: 1.25rem;
+  }
+
+  .mobile-section__title {
+    font-size: clamp(2rem, 8.5vw, 2.625rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: #fff;
+  }
+
+  .mobile-section__subtitle {
+    margin-top: 0.65rem;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  /* ===== Carousel ===== */
+  .mobile-carousel__track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.25rem;
+    padding: 0.25rem 1.25rem 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .mobile-carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-carousel__slide {
+    flex: 0 0 82vw;
+    max-width: 22rem;
+    scroll-snap-align: start;
+  }
+
+  .mobile-carousel__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1.25rem 0;
+  }
+
+  .mobile-carousel__dots {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .mobile-carousel__dot {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-carousel__dot.is-active {
+    background: var(--accent-blue);
+    transform: scale(1.15);
+  }
+
+  .mobile-carousel__hint {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: rgba(140, 180, 255, 0.65);
+  }
+
+  /* ===== Glass cards ===== */
+  .mobile-glass-card {
+    height: 100%;
+    min-height: 11.5rem;
+    padding: 1.1rem 1.15rem;
+    border-radius: 1.1rem;
+    border: 1px solid rgba(110, 168, 255, 0.24);
+    background: linear-gradient(
+      165deg,
+      rgba(14, 22, 42, 0.92) 0%,
+      rgba(6, 10, 22, 0.98) 100%
+    );
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+      0 12px 32px rgba(0, 0, 0, 0.28);
+  }
+
+  .mobile-glass-card__label {
+    margin: 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: rgba(140, 180, 255, 0.9);
+  }
+
+  .mobile-glass-card__desc {
+    margin: 0.45rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  /* Process cards */
+  .mobile-process__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .mobile-process__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-process__number {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+
+  .mobile-process__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid rgba(110, 168, 255, 0.35);
+    color: #6ea8ff;
+  }
+
+  .mobile-process__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .mobile-process__desc {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  /* ===== Footer ===== */
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .site-footer__meta {
+    align-items: flex-start;
+  }
+}
+
+/* Desktop: скрыть mobile-only trusted carousel wrapper */
